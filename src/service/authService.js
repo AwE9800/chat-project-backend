@@ -46,7 +46,7 @@ const exists = async ({ email, password }) => {
                 resolve(token);
             } else {
                 // Om lösenordet inte är giltigt, avvisa med ett felmeddelande
-                reject(new Error('Ogiltigt lösenord'));
+                reject(new Error('Invalid password'));
             }
         });
     });

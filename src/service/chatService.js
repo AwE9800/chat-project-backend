@@ -2,6 +2,7 @@ import { fetchCollection } from '../mongodb/mongodbClient.js';
 import { ObjectId } from 'mongodb';
 
 const BROADCAST_COLLECTION_NAME = 'broadcast';
+
 const CHANNEL_COLLECTION_NAME = 'channels';
 
 // Funktion för att hämta alla broadcastmeddelanden från databasen

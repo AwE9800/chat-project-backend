@@ -9,7 +9,7 @@ const authorize = (req, res, next) => {
     try {
         // Kontrollera om 'authorization'-huvudet är definierat
         if (bearer == undefined) {
-            return res.status(400).send({ err: 'Dålig auktorisationsrubrik' });
+            return res.status(400).send({ err: 'Bad authorization header' });
         }
 
         // Verifiera JWT-tokenet
@@ -22,9 +22,9 @@ const authorize = (req, res, next) => {
         console.log(err);
         // Hantera olika typer av fel som kan uppstå vid verifiering av JWT-tokenet
         if (err.name == 'JsonWebTokenError') {
-            return res.status(400).send({ err: 'Ogiltig auktorisationssignatur' });
+            return res.status(400).send({ err: 'Invalid authorization signature' });
         } else if (err.name == 'TokenExpiredError') {
-            return res.status(400).send({ err: 'Auktorisationstoken har löpt ut' });
+            return res.status(400).send({ err: 'Authorization token expired' });
         }
     }
 

@@ -10,8 +10,8 @@ const getBroadcastMessages = async (req, res) => {
         res.status(200).json(messages);
     } catch (error) {
         // Om det uppstår ett fel, logga felet och skicka tillbaka ett felmeddelande som JSON
-        console.error('Fel vid hämtning av sändningsmeddelanden:', error);
-        res.status(500).json({ error: 'Internt serverfel' });
+        console.error('Error fetching broadcast messages:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
 
@@ -20,7 +20,7 @@ const createBroadcastMessage = async (req, res) => {
     const { content } = req.body;
     // Kontrollera om innehållet finns med
     if (!content) {
-        return res.status(400).json({ error: 'Innehåll krävs' });
+        return res.status(400).json({ error: 'Content is required' });
     }
 
     try {
@@ -31,11 +31,11 @@ const createBroadcastMessage = async (req, res) => {
 
         // Använd chatService för att skapa ett nytt meddelande som ska sändas till flera mottagare
         await chatService.createBroadcastMessage(newMessage);
-        res.status(201).json({ message: 'Meddelandet skapades framgångsrikt' });
+        res.status(201).json({ message: 'Message created successfully' });
     } catch (error) {
         // Om det uppstår ett fel, logga felet och skicka tillbaka ett felmeddelande som JSON
-        console.error('Fel vid skapande av sändningsmeddelande:', error);
-        res.status(500).json({ error: 'Internt serverfel' });
+        console.error('Error creating broadcast message:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
 
@@ -48,8 +48,8 @@ const getChannels = async (req, res) => {
         res.status(200).json(channels);
     } catch (error) {
         // Om det uppstår ett fel, logga felet och skicka tillbaka ett felmeddelande som JSON
-        console.error('Fel vid hämtning av kanaler:', error);
-        res.status(500).json({ error: 'Internt serverfel' });
+        console.error('Error fetching channels:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
 
@@ -58,17 +58,17 @@ const createChannel = async (req, res) => {
     const { name } = req.body;
     // Kontrollera om namnet finns med
     if (!name) {
-        return res.status(400).json({ error: 'Namn krävs' });
+        return res.status(400).json({ error: 'Name is required' });
     }
 
     try {
         // Använd chatService för att skapa en ny kanal
         await chatService.createChannel(name);
-        res.status(201).json({ message: 'Kanalen skapades framgångsrikt' });
+        res.status(201).json({ message: 'Channel created successfully' });
     } catch (error) {
         // Om det uppstår ett fel, logga felet och skicka tillbaka ett felmeddelande som JSON
-        console.error('Fel vid skapande av kanal:', error);
-        res.status(500).json({ error: 'Internt serverfel' });
+        console.error('Error creating channel:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
 
@@ -79,7 +79,7 @@ const getChannelMessages = async (req, res) => {
     try {
         objectId = new ObjectId(id);
     } catch (e) {
-        return res.status(400).send({ msg: 'Ogiltigt id-format' });
+        return res.status(400).send({ msg: 'Invalid id format' });
     }
 
     try {
@@ -88,8 +88,8 @@ const getChannelMessages = async (req, res) => {
         res.status(200).json(messages);
     } catch (error) {
         // Om det uppstår ett fel, logga felet och skicka tillbaka ett felmeddelande som JSON
-        console.error('Fel vid hämtning av kanalmeddelanden:', error);
-        res.status(500).json({ error: 'Internt serverfel' });
+        console.error('Error fetching channel messages:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
 const createChannelMessage = async (req, res) => {
@@ -101,11 +101,11 @@ const createChannelMessage = async (req, res) => {
     try {
         objectId = new ObjectId(id);
     } catch (e) {
-        return res.status(400).send({ msg: 'Ogiltigt id-format' });
+        return res.status(400).send({ msg: 'Invalid id format' });
     }
 
     if (!content) {
-        return res.status(400).json({ error: 'Innehåll krävs' });
+        return res.status(400).json({ error: 'Content is required' });
     }
 
     try {
@@ -115,10 +115,10 @@ const createChannelMessage = async (req, res) => {
             timestamp: new Date().toLocaleString('sv-SE'),
         };
         await chatService.createChannelMessage(objectId, newMessage);
-        res.status(201).json({ message: 'Meddelandet skapades framgångsrikt' });
+        res.status(201).json({ message: 'Message created successfully' });
     } catch (error) {
-        console.error('Fel vid skapande av kanalmeddelande:', error);
-        res.status(500).json({ error: 'Internt serverfel' });
+        console.error('Error creating channel message:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
 
@@ -129,16 +129,16 @@ const deleteChannel = async (req, res) => {
     try {
         objectId = new ObjectId(id);
     } catch (e) {
-        return res.status(400).send({ msg: 'Ogiltigt id-format' });
+        return res.status(400).send({ msg: 'Invalid id format' });
     }
 
     try {
         // Använd chatService för att ta bort en kanal
         await chatService.deleteChannel(objectId);
-        res.status(200).json({ message: 'Kanalen togs bort framgångsrikt' });
+        res.status(200).json({ message: 'Channel deleted successfully' });
     } catch (error) {
-        console.error('Fel vid borttagning av kanal:', error);
-        res.status(500).json({ error: 'Internt serverfel' });
+        console.error('Error deleting channel:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
 
